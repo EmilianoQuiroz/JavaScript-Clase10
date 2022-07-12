@@ -103,3 +103,103 @@ sessionStorage.removeItem('esValido');
 localStorage.clear()    //elimina toda la información
 sessionStorage.clear() //elimina toda la información
 */
+
+
+/*
+***************************
+*          JSON           *
+***************************
+*/
+
+//--- ALMACENAR OBJETOS EN STORAGE ---//
+/*
+Si queremos almacenar la información de un objeto en un storage, hay que tener en cuenta que tanto la clave como el valor se almacenan en strings.
+Ante cualquier otro tipo a guardar, como un número o un objeto, se convierte a cadena de texto automáticamente.
+*/
+
+//--- ALMACENAR OBJETOS EN STORAGE ---//
+/*
+Entonces, al buscar almacenar un objeto sin una transformación previa, guardamos [object Object], la conversión por defecto de objeto a string. Para guardar la información correctamente hay que transformar el objeto a JSON.
+
+const producto1 = { id: 2, producto: "Arroz" };
+localStorage.setItem("producto1", producto1); // Se guarda [object Object]
+*/
+
+//--- ACCESO TIPO OBJETO ---//
+/*
+//Guarda una clave
+localStorage.numeroPrueba = 5;
+
+//Leer una clave
+alert( localStorage.numeroPrueba ); // 5
+
+let clave = 'toString';	 //toString método reservado	
+localStorage[clave] = "6"; //No se guarda este dato
+*/
+
+//--- ¿QUE ES JSON? ---//
+/*
+JavaScript Object Notation (JSON) es un formato basado en texto plano, para representar datos estructurados con la sintaxis de objetos de JavaScript. Es comúnmente utilizado para enviar y almacenar datos en aplicaciones web.
+Aunque es muy parecido (casi similar) a la sintaxis de JavaScript, puede ser utilizado independientemente de JavaScript, y muchos entornos de programación poseen la capacidad de leer (convertir; parsear) y generar JSON.
+JSON es un string con un formato específico.
+*/
+
+//--- CONVERSIÓN DE OBJETOS Y ALMACENAMIENTO ---//
+/*
+CONVERSIONES DE/HACIA JSON
+Cuando sea necesario enviar un objeto Javascript al servidor o almacenarlo en storage, será necesario convertirlo a un JSON (una cadenada antes de ser enviado.
+
+Cuando sea necesario enviar un objeto Javascript al servidor o almacenarlo en storage, será necesario convertirlo a un JSON (una cadena) antes de ser enviado.
+Para eso usamos los siguientes métodos:
+
+Stringhfy: acepta un objeto como parámetro, y devuelve la forma de texto JSON equivalente.
+
+Parse: recibe un texto JSON como parámetro, y devuelve el objeto JavaScript correspondiente.
+*/
+
+//--- STRINGIFY ---//
+/*
+Con JSON.stringify podemos transformar un objeto JavaScript a un string en formato JSON. 
+
+const producto1 = { id: 2, producto: "Arroz" };
+const enJSON    = JSON.stringify(producto1);
+
+console.log(enJSON); // {"id":2,"producto":"Arroz"}
+console.log(typeof producto1); // object
+console.log(typeof enJSON);    // string
+
+localStorage.setItem("producto1", enJSON);
+// Se guarda {"id":2,"producto":"Arroz"}
+*/
+
+//--- PARSE ---//
+/*
+Con JSON.parse podemos transformar string en formato JSON a objeto JavaScript.
+
+const enJSON    = '{"id":2,"producto":"Arroz"}';
+const producto1 = JSON.parse(enJSON);
+
+console.log(typeof enJSON);     // string
+console.log(typeof producto1);  // object
+console.log(producto1.producto); // Arroz
+
+const producto2 = JSON.parse(localStorage.getItem("producto1"));
+console.log(producto2.id);  // 2  
+*/
+
+//--- RECUPERAR DATOS ---//
+/*
+Muchas veces usamos el Storage para recuperar datos relacionados a la última navegación del usuario. Por ejemplo, su última sesión de login o el último estado de su carrito de compras.
+Para esto, pensamos en inicializar las variables de la app consultando el Storage en el momento de inicio.
+*/
+
+//--- JSON: OTROS PUNTOS A TENER EN CUENTA ---//
+/*
+Los datos en formato JSON se pueden almacenar en archivos externos .json. Exemplo: datos.json
+
+JSON es sólo un formato de datos -  contiene sólo propiedades, no métodos.
+
+Una coma o dos puntos mal ubicados pueden producir que un archivo JSON no funcione. Se debe ser cuidadoso para validar cualquier dato que se quiera utilizar. https://jsonformatter.curiousconcept.com/
+
+A diferencia del código JavaScript en que las propiedades del objeto pueden no estar entre comillas, en JSON sólo las cadenas entre comillas pueden ser utilizadas como propiedades.
+*/
